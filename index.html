@@ -1,1 +1,87 @@
-                    
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { FcGoogle } from "react-icons/fc";
+import { FaApple, FaFacebook, FaPhoneAlt } from "react-icons/fa";
+
+export default function CreateAccount() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-200 p-4">
+      <Card className="max-w-md w-full p-6 rounded-2xl shadow-2xl">
+        <CardContent className="flex flex-col items-center gap-6">
+          <h1 className="text-2xl font-bold text-center">Create Your Account</h1>
+          <Button variant="outline" className="w-full flex gap-2">
+            <FcGoogle size={24} /> Sign up with Google
+          </Button>
+          <Button variant="outline" className="w-full flex gap-2">
+            <FaApple size={24} /> Sign up with Apple
+          </Button>
+          <Button variant="outline" className="w-full flex gap-2">
+            <FaFacebook size={24} className="text-blue-600" /> Sign up with Facebook
+          </Button>
+          <Button variant="outline" className="w-full flex gap-2">
+            <FaPhoneAlt size={20} /> Sign up with Mobile Number
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+const existingBooks = [
+  "jeevan yatra",
+  "safalta ke mantra",
+  "krishi margadarshan",
+  "ghar ka khana",
+  "manav adhikar",
+];
+
+export default function CreateBook() {
+  const [bookName, setBookName] = useState("");
+  const [isUnique, setIsUnique] = useState(false);
+
+  const validateBookName = (name) => {
+    const simpleName = name.trim().toLowerCase();
+    const invalidPatterns = [".com", ".in", ".net", ".org"];
+    const hasInvalid = invalidPatterns.some((pattern) => simpleName.includes(pattern));
+    const isDuplicate = existingBooks.some((book) => book === simpleName);
+    if (simpleName.length > 2 && !hasInvalid && !isDuplicate) {
+      setIsUnique(true);
+    } else {
+      setIsUnique(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const name = e.target.value;
+    setBookName(name);
+    validateBookName(name);
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-200 p-4">
+      <Card className="max-w-md w-full p-6 rounded-2xl shadow-2xl">
+        <CardContent className="flex flex-col gap-6">
+          <h1 className="text-2xl font-bold text-center">अपनी नई किताब का नाम रखें</h1>
+          <input
+            type="text"
+            value={bookName}
+            onChange={handleInputChange}
+            placeholder="यहाँ अपनी किताब का नाम लिखें"
+            className="border p-2 rounded w-full"
+          />
+          {isUnique && (
+            <Button className="bg-green-500 hover:bg-green-600 text-white w-full">
+              Save
+            </Button>
+          )}
+          {!isUnique && bookName.length > 0 && (
+            <p className="text-red-500 text-sm text-center">\nनाम साधा होना चाहिए और किसी मौजूदा किताब से अलग होना चाहिए।</p>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

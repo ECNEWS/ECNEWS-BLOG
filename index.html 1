@@ -1,0 +1,24 @@
+<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 to-blue-200 p-4">
+      <Card className="max-w-md w-full p-6 rounded-2xl shadow-2xl">
+        <CardContent className="flex flex-col gap-6">
+          <h1 className="text-2xl font-bold text-center">अपनी नई किताब का नाम रखें</h1>
+          <input
+            type="text"
+            value={bookName}
+            onChange={handleInputChange}
+            placeholder="यहाँ अपनी किताब का नाम लिखें"
+            className="border p-2 rounded w-full"
+          />
+          {isUnique && (
+            <Button className="bg-green-500 hover:bg-green-600 text-white w-full">
+              Save
+            </Button>
+          )}
+          {!isUnique && bookName.length > 0 && (
+            <p className="text-red-500 text-sm text-center">\nनाम साधा होना चाहिए और किसी मौजूदा किताब से अलग होना चाहिए।</p>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

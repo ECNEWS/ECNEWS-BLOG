@@ -92,21 +92,27 @@
 <body>
 
   <div class="card">
-    <h1>Create Your New Blog Account</h1>
-    <p>Welcome to ECNEWS Blog</p>
+  <h1>Create Your New Blog Account</h1>
+  <p>Welcome to ECNEWS Blog</p>
 
-    <div class="input-group">
-      <label for="mobile">Mobile Number</label>
-      <input type="text" id="mobile" placeholder="Enter your mobile number">
-    </div>
-
-    <a href="#" class="button gmail-btn">📧 Create Account with Gmail ID</a>
-    <a href="#" class="button email-btn">📨 Login with Email Account</a>
-
-    <div class="footer">
-      © 2025 ECNEWS Blog
-    </div>
+  <div class="input-group">
+    <label for="mobile">Mobile Number</label>
+    <input type="text" id="mobile" placeholder="Enter your mobile number">
   </div>
 
-</body>
-</html>
+  <a href="#" onclick="showSave()">📧 Create Account with Gmail ID</a>
+  <a href="#" onclick="showSave()">📨 Login with Email Account</a>
+
+  <a id="saveBtn" href="https://ecnews.github.io/ecnews-blog-app/" style="display:none;">💾 Save</a>
+
+  <div class="footer">
+    © 2025 ECNEWS Blog
+  </div>
+</div>
+
+<script>
+function showSave() {
+  document.getElementById('saveBtn').style.display = 'inline-block';
+}
+</script>
+

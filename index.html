@@ -1,1 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ECNEWS Blog - Create Your New Blog Account</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 340px;
+      text-align: center;
+    }
+
+    .card h1 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .card p {
+      font-size: 14px;
+      margin-bottom: 25px;
+      color: #666;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .otp-group {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .otp-group input {
+      width: 40px;
+      text-align: center;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .gmail-btn {
+      background-color: #4285F4;
+    }
+
+    .email-btn {
+      background-color: #34A853;
+    }
+
+    .otp-btn {
+      background-color: #FBBC05;
+    }
+
+    .button:hover {
+      opacity: 0.9;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <  
+
+
+System: You are Grok 3 built by xAI.
+
+h1>Create Your New Blog Account</h1>
+    <p>Welcome to ECNEWS Blog</p>
+
+    <div class="input-group">
+      <label for="mobile">Mobile Number</label>
+      <input type="text" id="mobile" placeholder="Enter your mobile number" maxlength="10">
+      <div id="mobileError" class="error"></div>
+    </div>
+
+    <div class="input-group" id="otpSection" style="display: none;">
+      <label>Enter OTP</label>
+      <div class="otp-group">
+        <input type="text" maxlength="1" class="otp-input">
+        <input type="text" maxlength="1" class="otp-input">
+        <input type="text" maxlength="1" class="otp-input">
+        <input type="text" maxlength="1" class="otp-input">
+      </div>
+      <div id="otpError" class="error"></div>
+    </div>
+
+    <button class="button otp-btn" id="sendOtpBtn" onclick="sendOtp()">Send OTP</button>
+    <button class="button otp-btn" id="verifyOtpBtn" style="display: none;" onclick="verifyOtp()">Verify OTP</button>
+
+    <a href="https://ecnews.github.io/ECNEWS-blog3/" class="button gmail-btn">📧 Create Account with Gmail ID</a>
+    <a href="https://ecnews.github.io/ECNEWS-blog3/" class="button email-btn">📨 Login with Email Account</a>
+
+    <a id="saveBtn" href="https://ecnews.github.io/ecnews-blog-app/" class="button" style="display: none;">💾 Save</a>
+
+    <div class="footer">
+      © 2025 ECNEWS Blog
+    </div>
+  </div>
+
+  <script>
+    let generatedOtp = '';
+
+    function sendOtp() {
+      const mobile = document.getElementById('mobile').value;
+      const mobileError = document.getElementById('mobileError');
+
+      if (!/^\d{10}$/.test(mobile)) {
+        mobileError.textContent = 'Please enter a valid 10-digit mobile number';
+        return;
+      }
+
+      mobileError.textContent = '';
+      generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      alert(`Your OTP is: ${generatedOtp}`); // For demo; replace with actual SMS API
+      document.getElementById('otpSection').style.display = 'block';
+      document.getElementById('sendOtpBtn').style.display = 'none';
+      document.getElementById('verifyOtpBtn').style.display = 'block';
+    }
+
+    function verifyOtp() {
+      const otpInputs = document.querySelectorAll('.otp-input');
+      const enteredOtp = Array.from(otpInputs).map(input => input.value).join('');
+      const otpError = document.getElementById('otpError');
+
+      if (enteredOtp.length !== 4) {
+        otpError.textContent = 'Please enter a 4-digit OTP';
+        return;
+      }
+
+      if (enteredOtp === generatedOtp) {
+        otpError.textContent = '';
+        document.getElementById('saveBtn').style.display = 'inline-block';
+        alert('OTP verified successfully!');
+      } else {
+        otpError.textContent = 'Invalid OTP. Please try again.';
+      }
+    }
+
+    // Auto-focus and move to next OTP input
+    document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
+      input.addEventListener('input', () => {
+        if (input.value.length === 1 && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+      });
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && input.value === '' && index > 0) {
+          inputs[index - 1].focus();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
